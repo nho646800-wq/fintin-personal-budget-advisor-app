@@ -1,7 +1,7 @@
 # Business Requirements Document (BRD)
 
 **Project:** Fintin — LLM-Integrated Personal Budget Advisor
-**Author:** Hoang (Teddy) Nguyen
+**Author:** Hoang Nguyen
 **Version:** 1.0
 **Date:** July 2026
 **Status:** Final
@@ -132,7 +132,7 @@ college students to:
 
 1. Set a savings goal with a defined purpose, target amount, 
    and deadline
-2. Log daily income and expenses by category in under 30 seconds
+2. Log daily income and expenses by category in under 60 seconds
 3. Receive an AI-generated overview budgeting plan based on the popular 
    50/30/20 method by default (spending allowance %'s for 3 primary expenditure 
    categories are still editable later on) right after onboarding
