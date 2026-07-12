@@ -10,7 +10,7 @@
 
 ## The Problem
 
-[Fill this in on Day 29. 2–3 sentences. 
+[Will fill this in on Day 29. 2–3 sentences. 
 
 Example direction: College students lack lightweight, AI-assisted tools 
 
