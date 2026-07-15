@@ -32,7 +32,7 @@ savings target
 As a Boilermaker who began college in August 2025, this problem was not 
 abstract to me. I had assumed budgeting was straightforward: estimate 
 monthly income, build a mental spending plan, subtract actual 
-transactions at month's end, and reflect on the gap. What I discovered 
+expenses at month's end, and reflect on the gap. What I discovered 
 was the opposite. I routinely spent on things I would only recognize 
 as unnecessary after the fact, had no real-time visibility into my 
 progress toward any savings goal, and was repeatedly blind to cheaper 
@@ -77,10 +77,10 @@ Each objective follows the SMART framework
 
 | #   | Objective                                                                                                                                                                                                                                                                               | Metric                                                                                                                                              | Timeline  |
 | --- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | --------- |
-| 1   | Enable fast income and daily expense logging so users can capture and store changes to their total available money balance in real time by amount, primary category, and subcategory as well as seeing those transactions' impacts on the balance and savings goal progress immediately | User can log a transaction in under 60 seconds                                                                                                      | By Day 26 |
+| 1   | Enable fast income and daily expense logging so users can capture and store transactions in real time by amount, primary category, and subcategory as well as seeing those transactions' impacts on the balance and savings goal progress immediately                                   | User can log a transaction in under 60 seconds                                                                                                      | By Day 26 |
 | 2   | Deliver a personalized AI savings plan at onboarding so users can control spending from day one rather than scrambling to cut costs at month's end                                                                                                                                      | User receives a full savings breakdown within 2 minutes of entering income and goal                                                                 | By Day 23 |
 | 3   | Visualize spending and savings progress so users can make informed decisions before a transaction occurs, not only after                                                                                                                                                                | Dashboard displays savings progress and category spending breakdowns with clear visual indicators                                                   | By Day 21 |
-| 4   | Provide weekly and monthly AI-generated expense reduction advice grounded in the user's inputs                                                                                                                                                                                          | AI report references real transaction, income, and savings goal data — never generic recommendations disconnected from what the user actually spent | By Day 23 |
+| 4   | Provide weekly and monthly AI-generated expense reduction advice grounded in the user's inputs                                                                                                                                                                                          | AI report references real transaction, and savings goal data — never generic recommendations disconnected from what the user actually spent         | By Day 23 |
 | 5   | Deploy as a secure, authenticated PWA so each user's financial data stays private and the app is accessible from the iPhone home screen without browser friction                                                                                                                        | App installs to iPhone home screen, requires signup or login to access, and is fully functional on mobile                                           | By Day 26 |
 
 
@@ -101,8 +101,8 @@ plan within 2 minutes through the onboarding flow
 logged spending categories — it never produces generic 
 recommendations such as "spend less on dining" or "avoid nights 
 out" without first confirming those categories exist in the 
-user's transaction history
-- All 4 core screens (Dashboard, Add Transaction, Total Money on Hand, weekly AI Advice) 
+user's expense history
+- All 4 core screens (Dashboard, Log Expense, Total Money on Hand, weekly AI Advice) 
 are functional and load smoothly on an iPhone
 - Zero critical bugs remain open after UAT
 
@@ -205,7 +205,7 @@ and income sources automatically
 
 - The user knows their rough income figures 
 and sources
-- The user is willing to enter transactions and incomes manually rather 
+- The user is willing to enter transactions manually rather 
 than connect a bank account
 - The user has an iPhone with Safari or Chrome installed
 - The Anthropic Claude API remains available and within free 
