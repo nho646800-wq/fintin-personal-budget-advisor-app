@@ -24,11 +24,10 @@ The following rules govern core system behavior and apply
 across multiple user stories:
 
 - **Total Money on Hand** is calculated as: initial onboarding
-  amount + sum of all income entries logged in the Income screen
-  − sum of all logged transactions. It is displayed as an
-  embedded figure on the Dashboard and recalculates automatically
-  whenever an income entry or transaction is created, edited,
-  or deleted.
+  amount + sum of all logged income entries − sum of all logged 
+  expense entries. It is displayed as an embedded figure on the 
+  Dashboard and recalculates automatically whenever an income 
+  or expense entry is created, edited, or deleted.
 - **Onboarding income entries** are stored solely for generating
   the one-time initial AI budgeting plan. They do not appear in
   the Income screen and are not referenced anywhere else in the
@@ -39,9 +38,9 @@ across multiple user stories:
 - **Income entries logged in the Income screen** are entirely
   separate from onboarding income entries. Creating one
   automatically increases Total Money on Hand by that amount.
-- **Savings** in the spending behavior pie chart is the remainder
-  of Total Money on Hand after all transactions are subtracted —
-  it is never a user-selectable transaction category.
+- **Savings** in the spending behavior pie chart is the remaining
+  Total Money on Hand figure after all expenses are subtracted and 
+  incomes are added — it is never a user-selectable expense category.
 
 ---
 
@@ -81,7 +80,7 @@ nearby spending alternatives relevant to where I live.
 *AC4 — Data isolation between accounts:*
 - **Given** two different users have accounts in the app
 - **When** each user logs in separately
-- **Then** each user sees only their own transactions, income
+- **Then** each user sees only their own expense entries, income
   entries, savings goal, and Total Money on Hand — never
   another user's data
 
@@ -221,7 +220,7 @@ in one tap.
   and does not link to a separate screen
 
 *AC2 — Total Money on Hand recalculates on any change:*
-- **Given** I have just logged a transaction, created an
+- **Given** I have just logged an expense, created an
   income entry, or edited either
 - **When** I go back to view the Dashboard
 - **Then** the Total Money on Hand figure immediately reflects
@@ -238,61 +237,60 @@ in one tap.
   my savings goal deadline
 
 *AC4 — Spending behavior pie chart:*
-- **Given** I have logged at least one transaction
+- **Given** I have logged at least one expense
 - **When** I view the Dashboard
 - **Then** I see a pie chart dividing my spending into three
-  segments: Needs (sum of all needs-category transactions),
-  Wants (sum of all wants-category transactions), and Savings
-  (Total Money on Hand remainder after all transactions),
-  with the ability to filter the chart by a selected date range.
-  Income entries are not represented in this chart
+  segments: Needs (sum of all needs-category expenses),
+  Wants (sum of all wants-category expenses), and Savings
+  (Total Money on Hand remainder), with the ability to filter 
+  the chart by a selected date range. Income entries are not represented in this chart
 
 *AC5 — All six navigation icons present and functional:*
 - **Given** I am on the Dashboard
 - **When** I view the screen
 - **Then** I can see clearly labeled, tappable icons for
-  View Initial Plan, Transaction History, Log Transaction,
+  View Initial Plan, Expense History, Log Expense,
   Income, Savings Goal, and Generate Advice Report — each navigating
   to its respective screen when tapped
 
 *AC6 — Empty state on first Dashboard visit:*
 - **Given** I have just completed onboarding, finished viewing the 
-  initial plan screen and have no transactions logged yet
+  initial plan screen and have no expenses logged yet
 - **When** I arrive at the Dashboard for the first time
 - **Then** the progress bar shows the % of how close my current 
   Total Money on Hand balance to the savings goal amount at 
   its right tail, the pie chart displays an empty state prompting 
-  me to log my first transaction, and the Total Money on Hand figure 
+  me to log my first expense, and the Total Money on Hand figure 
   reflects my opening balance confirmed during the onboarding process
 
 ---
 
-### US-005 — Log a Transaction
+### US-005 — Log an Expense
 
 **Story:**
-As a college student, I want to quickly log a transaction with
+As a college student, I want to quickly log an expense with
 a main category, subcategory, amount, and optional note so
 that my spending is recorded and my Total Money on Hand
 decreases immediately to reflect what I actually spent.
 
 **Acceptance Criteria:**
 
-*AC1 — Successful transaction log:*
-- **Given** I tap the Log Transaction icon from the Dashboard
+*AC1 — Successful expense log:*
+- **Given** I tap the Log Expense icon from the Dashboard
 - **When** I select a main category, enter or select a
   subcategory, enter an amount, add an optional note,
   and tap Save
-- **Then** the transaction is saved, appears in my Transaction
+- **Then** the expense is saved, appears in my Expense
   History, and my Total Money on Hand on the Dashboard is
-  immediately reduced by that transaction amount
+  immediately reduced by that expense amount
 
 *AC2 — Main category is limited to Needs or Wants:*
-- **Given** I am on the Log Transaction form
+- **Given** I am on the Log Expense form
 - **When** I select a main category
 - **Then** only Needs and Wants are available as options —
   Savings does not appear as a selectable main category,
   since savings is the remainder the app calculates
-  automatically - Total Money on Hand after all incomes and transactions
+  automatically - Total Money on Hand after all incomes and expenses
   are accounted for, not a spending category the user logs
 
 *AC3 — Subcategory is editable:*
@@ -303,57 +301,57 @@ decreases immediately to reflect what I actually spent.
   Transport, or type in a custom subcategory of my own
 
 *AC4 — Validation on empty required fields:*
-- **Given** I am on the Log Transaction form
+- **Given** I am on the Log Expense form
 - **When** I attempt to save with the amount field empty or
   the main category unselected
 - **Then** the app displays an error message that says "Please fill in all 
-  required fields" and does not save the transaction
+  required fields" and does not save the expense
 
 ---
 
-### US-006 — View and Manage Transaction History
+### US-006 — View and Manage Expense History
 
 **Story:**
-As a college student, I want to view all my logged transactions
+As a college student, I want to view all my logged expenses
 in one place, sort and filter them, and correct any entry I
-logged incorrectly so that my transaction record stays accurate
+logged incorrectly so that my expense record stays accurate
 and easy to navigate.
 
 **Acceptance Criteria:**
 
-*AC1 — Full transaction list displayed:*
-- **Given** I tap the Transaction History icon from the Dashboard
-- **When** I arrive at the Transaction History screen
-- **Then** I see a list of all logged transactions, each showing
+*AC1 — Full expense list displayed:*
+- **Given** I tap the Expense History icon from the Dashboard
+- **When** I arrive at the Expense History screen
+- **Then** I see a list of all logged expenses, each showing
   its main category, subcategory, amount, logged date, and note (if 
-  the field was filled out when the transaction was first logged)
+  this field was filled out when the expense was first logged)
 
 *AC2 — Sortable by date and amount:*
-- **Given** I am viewing my Transaction History
+- **Given** I am viewing my Expense History
 - **When** I select a sort option
 - **Then** I can sort the list by logged date (latest first or
   oldest first) or by amount (highest first or lowest first)
 
 *AC3 — Filterable by category, subcategory, and amount range:*
-- **Given** I am viewing my Transaction History
+- **Given** I am viewing my Expense History
 - **When** I apply a filter
 - **Then** I can filter the list by main category (Needs or Wants), by a 
-  specific subcategory to which at least a transaction belongs, or by a 
+  specific subcategory to which at least an expense entry belongs, or by a 
   defined amount range — and the list updates to show only matching 
-  records
+  entries
 
-*AC4 — Editing a transaction recalculates Total Money on Hand:*
-- **Given** I tap on a logged transaction and update its amount
+*AC4 — Editing an expense recalculates Total Money on Hand:*
+- **Given** I tap on a logged expense and update its amount
 - **When** I save the change
-- **Then** the transaction record is updated and Total Money
+- **Then** the expense entry is updated and Total Money
   on Hand is recalculated — the original amount is added back
   and the corrected amount is subtracted
 
-*AC5 — Deleting a transaction restores Total Money on Hand:*
-- **Given** I tap on a logged transaction and select Delete
+*AC5 — Deleting an expense restores Total Money on Hand:*
+- **Given** I tap on a logged expense and select Delete
 - **When** I confirm the deletion
-- **Then** the transaction is permanently removed and Total
-  Money on Hand increases by that transaction's amount
+- **Then** the expense entry is permanently removed and Total
+  Money on Hand increases by that expense entry's amount
 
 ---
 
@@ -396,7 +394,7 @@ to Total Money on Hand:*
 - **When** I apply a filter
 - **Then** I can filter the list by source or by a defined
   amount range, and the list updates to show only
-  matching records
+  matching entries
 
 *AC5 — Editing an income entry recalculates
 Total Money on Hand:*
@@ -475,7 +473,7 @@ at every four-week mark:*
   fourth week
 - **Then** the Claude API is called and a monthly advice
   report is generated based on the fixed savings goal details 
-  as well as all transactions and income entries logged across 
+  as well as all expense and income entries logged across 
   the entire previous four weeks — replacing the standard weekly 
   report for that period
 
@@ -483,7 +481,7 @@ at every four-week mark:*
 - **Given** a weekly or monthly report is being generated
 - **When** the Claude API call is made
 - **Then** the report draws only from the permanent savings goal details,
-  logged transaction data, income entries, and current Total Money on Hand
+  logged expense data, income entries, and current Total Money on Hand
   relevant to that reporting period. Onboarding income 
   entries are never referenced in any weekly or monthly report
   once the onboarding process is complete
@@ -493,7 +491,7 @@ recommendations:*
 - **Given** a weekly or monthly report is generated
 - **When** I review the advice
 - **Then** the report identifies at least one specific
-  subcategory or a transaction where spending can be 
+  subcategory or an expense entry where spending can be 
   reduced based on my savings goal timeline, and includes 
   at least one real, specific, nearby alternative option 
   relevant to my city and state — such as a cheaper grocery 
@@ -537,8 +535,8 @@ app — without opening a browser or typing a URL.
 | US-002 | Complete Onboarding | Objectives 1, 2, 3 |
 | US-003 | View Initial AI Budgeting Plan | Objective 2 |
 | US-004 | View Dashboard | Objective 3 |
-| US-005 | Log a Transaction | Objective 1 |
-| US-006 | View and Manage Transaction History | Objective 1 |
+| US-005 | Log an Expense | Objective 1 |
+| US-006 | View and Manage Expense History | Objective 1 |
 | US-007 | Log and Manage Income Entries | Objective 1 |
 | US-008 | View Savings Goal | Objective 3 |
 | US-009 | Generate Weekly and Monthly AI Advice Reports | Objective 4 |
