@@ -68,9 +68,11 @@ from business case through UAT — before any implementation steps began.
 
 
 
-## App Screenshots
+## App Screens
 
-*Added after Day 26 — once deployment and mobile testing complete.*
+| Dashboard | Onboarding | AI Budget Plan |
+|---|---|---|
+| ![Dashboard](docs/05-ux-design/wireframes/08-home-dashboard.png) | ![Onboarding](docs/05-ux-design/wireframes/04-onboarding-money-on-hand.png) | ![Plan](docs/05-ux-design/wireframes/07-onboarding-initial-plan.png) |
 
 ---
 
