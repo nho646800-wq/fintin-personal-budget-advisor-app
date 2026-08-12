@@ -486,7 +486,18 @@ at every four-week mark:*
   entries are never referenced in any weekly or monthly report
   once the onboarding process is complete
 
-*AC5 — Reports include specific, location-aware
+*AC5 — Reports automatically locked after the one-week or monthly mark:*
+- **Given** The date that marks a weekly or monthly period has passed, 
+I forgot to view my report via the Generate Advice Report button, and the current
+weekly period has not ended yet.
+- **When** I click on the Generate Advice Report button
+- **Then** The date error message is displayed to indicate the next date
+on which the report generation feature becomes available again. Moreover, when the button
+is unlocked and tapped on that next available date, the generated report will only use the data logged during
+the period immediately preceding that date, not the older period during which the advice generation
+was missed. 
+
+*AC6 — Reports include specific, location-aware
 recommendations:*
 - **Given** a weekly or monthly report is generated
 - **When** I review the advice
@@ -497,7 +508,7 @@ recommendations:*
   relevant to my city and state — such as a cheaper grocery 
   store or a more affordable dining option in my area
 
-*AC6 — Loading state during generation:*
+*AC7 — Loading state during generation:*
 - **Given** I have triggered a report
 - **When** the Claude API call is processing
 - **Then** the app displays a loading indicator and does
