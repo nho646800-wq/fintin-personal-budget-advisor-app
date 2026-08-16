@@ -1,6 +1,6 @@
 # FinTin Budget Advisor App
 
-> An LLM-integrated personal finance Progressive Web App that helps college students track income, expenses, and work towards their savings goals — with measurable progress and weekly personalized advice from an integrated LLM (Claude API by Anthropic).
+> An LLM-integrated personal finance Progressive Web App that helps college students track income, expenses, and work towards their savings goals — with measurable progress and weekly personalized advice from an integrated LLM (Gemini API by Google).
 
 **Live Demo:** [Link coming after deployment]  
 
@@ -20,7 +20,7 @@ not generic tips designed for people with stable incomes.]
 
 ## The Solution
 
-[Fill this in on Day 29. 2–3 sentences describing what the app does 
+[Day 29. 2–3 sentences describing what the app does 
 
 and how the AI integration specifically addresses the problem.]
 
@@ -37,7 +37,7 @@ from business case through UAT — before any implementation steps began.
 | Document | Description |
 |---|---|
 | [Business Requirements (BRD)](docs/01-business/[BRD.md](http://BRD.md)) | Why this app exists — primary sections: problem statement, objectives (follow the SMART structure), target users, success metrics, competitive landscape, solution scope, constraints |
-| [Functional Requirements (FRD)](docs/02-requirements/[FRD.md](http://FRD.md)) | What functions the app must perform — primary sections: feature specs, MoSCoW prioritization, AI behavior specification |
+| [Functional Requirements (FRD)](docs/02-requirements/[FRD.md](http://FRD.md)) | Feature Priority List - Defines essential app functions ordered by their importance to the core user flow, directly dictating the sequence of development. |
 | [User Stories](docs/02-requirements/[user-stories.md](http://user-stories.md)) | Agile-style user stories with acceptance criteria follow a Given/When/Then structure |
 | [AS-IS Process Map](docs/03-process-models/AS-IS-college-budget-process.png) | How college students manage budgets today and the current pain points of this process that this app addresses |
 | [TO-BE Process Map](docs/03-process-models/TO-BE-app-budget-process.png) | The improved process enabled by the app through bridging the gaps that the AS-IS process created at first |
@@ -59,7 +59,7 @@ from business case through UAT — before any implementation steps began.
 |---|---|---|
 | Frontend | Next.js (React) + Tailwind CSS | UI + mobile-friendly PWA |
 | Database | Supabase (PostgreSQL) | storage of user data (transactions, goals, etc.) |
-| AI | Anthropic Claude API | Personalized budgeting advice |
+| AI | Google Gemini API | Personalized budgeting advice |
 | Hosting | Vercel | Deployment + CI from GitHub |
 | Design | Figma | Wireframes and UI mockups |
 | Diagramming | Lucidchart, [dbdiagram.io](http://dbdiagram.io) | Process models and ERD |
