@@ -65,7 +65,7 @@ the flow consistent and enhance user experience.
 
 Scope:
 
-- Claude API called immediately after onboarding
+- Gemini called immediately after onboarding
   with opening balance, income entries, savings
   goal amount, deadline, and city/state
 
@@ -169,7 +169,7 @@ Scope:
   monthly report instead of a weekly one, following 
   the same single-day availability window
 
-- When unlocked and tapped, Claude API is called with 
+- When unlocked and tapped, Google Gemini API is called with 
   only the previous period's expenses, income entries 
   logged during that period, current Total Money on Hand, 
   savings goal details, and user city and state
@@ -251,7 +251,7 @@ Build last if time allows.
 
 ## General Non-Functional Requirements
 
-- AI API responses must return and display within 15 seconds
+- Gemini API responses must return and display within 15 seconds
 
 - App must be fully functional on iPhone running iOS 16 or later
 

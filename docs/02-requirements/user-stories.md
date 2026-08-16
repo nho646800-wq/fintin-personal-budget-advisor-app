@@ -116,7 +116,7 @@ progress from day one.
 - **When** I add one or more income entries — each with a
   source, expected amount, and expected timing — and tap Continue
 - **Then** all entries are saved and I advance to the third step.
-  These entries are stored exclusively to provide Claude with
+  These entries are stored exclusively to provide Gemini with
   income context for generating the one-time initial budgeting
   plan. They will not appear in the Income screen and will
   not be referenced anywhere else in the app after
@@ -194,7 +194,7 @@ this plan at any time from my Dashboard.
 *AC6 — Loading state during generation:*
 - **Given** the AI plan is being generated immediately
   after onboarding
-- **When** the Claude API call is processing
+- **When** the Gemini API call is processing
 - **Then** the app displays a loading indicator and does not
   show a blank or broken screen
 
@@ -454,14 +454,14 @@ alternatives relevant to where I live.
 - **Given** the current weekly period has not yet ended
 - **When** I tap Generate Report from the Dashboard
 - **Then** the app displays the message: "Please wait until
-  [end of weekly period date] so Claude can gather enough
+  [end of weekly period date] so Gemini can gather enough
   data for your personalized advice" and no API call is made
 
 *AC2 — Weekly report generated after each weekly period:*
 - **Given** a full weekly period has passed and it is not
   the end of a four-week cycle
 - **When** I tap Generate Report
-- **Then** the Claude API is called and a weekly advice
+- **Then** the Gemini API is called and a weekly advice
   report is generated and displayed based on the
   previous week's data
 
@@ -471,7 +471,7 @@ at every four-week mark:*
   since onboarding or since the last monthly report
 - **When** I tap Generate Report at the end of that
   fourth week
-- **Then** the Claude API is called and a monthly advice
+- **Then** the Gemini API is called and a monthly advice
   report is generated based on the fixed savings goal details 
   as well as all expense and income entries logged across 
   the entire previous four weeks — replacing the standard weekly 
@@ -479,7 +479,7 @@ at every four-week mark:*
 
 *AC4 — Reports reference only the relevant period's data:*
 - **Given** a weekly or monthly report is being generated
-- **When** the Claude API call is made
+- **When** the Gemini API call is made
 - **Then** the report draws only from the permanent savings goal details,
   logged expense data, income entries, and current Total Money on Hand
   relevant to that reporting period. Onboarding income 
@@ -510,7 +510,7 @@ recommendations:*
 
 *AC7 — Loading state during generation:*
 - **Given** I have triggered a report
-- **When** the Claude API call is processing
+- **When** the Gemini API call is processing
 - **Then** the app displays a loading indicator and does
   not show a blank or broken screen
 
