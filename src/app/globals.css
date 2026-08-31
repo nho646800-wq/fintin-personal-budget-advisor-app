@@ -22,5 +22,35 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-fredoka), Arial, Helvetica, sans-serif;
+}
+
+/* PageTransition exit choreography: the frame itself fades everything in
+   place by default; elements tagged with a matching data-role additionally
+   slide in a direction while they fade. See components/PageTransition.tsx. */
+.page-transition-frame {
+  transition: opacity 200ms ease;
+}
+
+.page-transition-frame[data-phase="exit"] {
+  opacity: 0;
+}
+
+.page-transition-frame [data-role] {
+  transition: transform 200ms ease, opacity 200ms ease;
+}
+
+.page-transition-frame[data-phase="exit"] [data-role="mascot"] {
+  transform: translateY(-16px);
+  opacity: 0;
+}
+
+.page-transition-frame[data-phase="exit"] [data-role="side-left"] {
+  transform: translateX(-16px);
+  opacity: 0;
+}
+
+.page-transition-frame[data-phase="exit"] [data-role="side-right"] {
+  transform: translateX(16px);
+  opacity: 0;
 }
