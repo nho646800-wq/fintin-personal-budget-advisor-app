@@ -1,3 +1,16 @@
+/**
+ * Formats a numeric amount as a ready-to-read currency string, e.g. `450`
+ * or `450.5` -> `"$450.00"`. This is the one place currency values are
+ * turned into `"$X.XX"` strings before being interpolated into an AI
+ * prompt template — the templates themselves never hardcode a `$`.
+ */
+export function formatCurrencyDisplay(amount: number): string {
+  return `$${amount.toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })}`;
+}
+
 /** Strip commas and keep only a valid in-progress currency string. */
 export function sanitizeCurrencyRaw(input: string): string {
   const noCommas = input.replace(/,/g, "");
