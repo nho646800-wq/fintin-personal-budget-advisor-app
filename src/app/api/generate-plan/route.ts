@@ -18,7 +18,7 @@ type UserRow = {
   state: string;
 };
 
-const GEMINI_MODEL = "gemini-1.5-flash";
+const GEMINI_MODEL = "gemini-flash-latest";
 const AI_CONTENT_TYPE = "initial_plan";
 
 // ---------------------------------------------------------------------------
