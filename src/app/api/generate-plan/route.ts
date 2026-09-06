@@ -18,7 +18,7 @@ type UserRow = {
   state: string;
 };
 
-const GEMINI_MODEL = "gemini-flash-latest";
+const GEMINI_MODEL = "gemini-3.5-flash-lite";
 const AI_CONTENT_TYPE = "initial_plan";
 
 // ---------------------------------------------------------------------------
@@ -253,6 +253,20 @@ export async function POST() {
   });
 
   if (insertError) {
+    // A concurrent request may have won the insert race (common under
+    // React Strict Mode remounts). If a row now exists, return that plan
+    // instead of surfacing a failure that would leave the UI stuck.
+    const { data: racedPlan } = await supabase
+      .from("ai_content")
+      .select("content")
+      .eq("user_id", user.id)
+      .eq("type", AI_CONTENT_TYPE)
+      .maybeSingle();
+
+    if (racedPlan?.content) {
+      return NextResponse.json({ content: racedPlan.content });
+    }
+
     return NextResponse.json({ error: insertError.message }, { status: 500 });
   }
 

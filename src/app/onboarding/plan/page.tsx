@@ -1,16 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import AppButton from "@/components/AppButton";
 import AuthHeader from "@/components/AuthHeader";
 import FinTinMascot from "@/components/FinTinMascot";
+import LoadingSpinner from "@/components/LoadingSpinner";
 import { HelpNote } from "@/lib/onboarding";
-
-type PlanState =
-  | { status: "loading" }
-  | { status: "error"; message: string }
-  | { status: "success"; content: string; generatedAt: Date };
+import { useGeneratePlan } from "@/hooks/useGeneratePlan";
 
 function formatDateMMDDYYYY(date: Date): string {
   const mm = String(date.getMonth() + 1).padStart(2, "0");
@@ -41,9 +37,7 @@ function DecorativeCloud({ className }: { className?: string }) {
  * Renders the Gemini response text as returned. The only transformation
  * applied is turning the `**Heading**` markers from Prompt 1's REQUIRED
  * OUTPUT contract into bold headings — every other character, line break,
- * and section (Monthly Allocation, Weekly Allocation, Tips, etc.) is left
- * exactly as the model produced it, so the card never drifts from the
- * prompt's own structure.
+ * and section is left exactly as the model produced it.
  */
 function PlanContent({ content }: { content: string }) {
   const segments = content.split(/(\*\*[^*]+\*\*)/g);
@@ -65,52 +59,7 @@ function PlanContent({ content }: { content: string }) {
 
 export default function OnboardingPlanPage() {
   const router = useRouter();
-  const [state, setState] = useState<PlanState>({ status: "loading" });
-
-  useEffect(() => {
-    let cancelled = false;
-
-    async function generatePlan() {
-      setState({ status: "loading" });
-
-      try {
-        const response = await fetch("/api/generate-plan", {
-          method: "POST",
-        });
-        const body = await response.json();
-
-        if (!response.ok) {
-          throw new Error(
-            body?.error ?? "Something went wrong generating your plan."
-          );
-        }
-
-        if (!cancelled) {
-          setState({
-            status: "success",
-            content: body.content,
-            generatedAt: new Date(),
-          });
-        }
-      } catch (error) {
-        if (!cancelled) {
-          setState({
-            status: "error",
-            message:
-              error instanceof Error
-                ? error.message
-                : "Something went wrong generating your plan.",
-          });
-        }
-      }
-    }
-
-    generatePlan();
-
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+  const plan = useGeneratePlan();
 
   return (
     <div className="flex min-h-screen flex-col bg-white font-[family-name:var(--font-fredoka)]">
@@ -119,21 +68,24 @@ export default function OnboardingPlanPage() {
       <div className="flex flex-1 flex-col items-center px-6 pb-8 pt-8">
         <FinTinMascot size={110} />
 
-        {state.status === "loading" && (
-          <p className="mt-6 max-w-[280px] text-center text-base leading-snug text-black">
-            Hang tight — I&apos;m putting together your personalized
-            budgeting plan...
-          </p>
+        {plan.status === "loading" && (
+          <div className="mt-6 flex max-w-[280px] flex-col items-center gap-4 text-center">
+            <LoadingSpinner size={44} label="Generating your plan" />
+            <p className="text-base leading-snug text-black">
+              Hang tight — I&apos;m putting together your personalized
+              budgeting plan...
+            </p>
+          </div>
         )}
 
-        {state.status === "error" && (
+        {plan.status === "error" && (
           <div className="mt-6 max-w-[320px] space-y-3 text-center">
             <p className="text-base leading-snug text-red-600">
-              {state.message}
+              {plan.message}
             </p>
             <button
               type="button"
-              onClick={() => setState({ status: "loading" })}
+              onClick={() => void plan.retry()}
               className="text-sm font-semibold text-[#295EFA] underline"
             >
               Try again
@@ -141,7 +93,7 @@ export default function OnboardingPlanPage() {
           </div>
         )}
 
-        {state.status === "success" && (
+        {plan.status === "success" && (
           <>
             <div className="mt-6 max-w-[320px] space-y-4 text-center text-base leading-snug text-black">
               <p>
@@ -163,10 +115,10 @@ export default function OnboardingPlanPage() {
                   Initial Budgeting Plan
                 </h2>
                 <p className="mt-1 text-sm text-white/80">
-                  Date: {formatDateMMDDYYYY(state.generatedAt)}
+                  Date: {formatDateMMDDYYYY(plan.generatedAt)}
                 </p>
                 <hr className="my-4 border-white/40" />
-                <PlanContent content={state.content} />
+                <PlanContent content={plan.content} />
               </div>
             </div>
 
