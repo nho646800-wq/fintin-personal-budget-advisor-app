@@ -16,6 +16,11 @@ import {
 import { parseCurrencyValue } from "@/lib/currency";
 import { createClient } from "@/lib/supabase/client";
 
+// Must match the IncomeTiming union in app/api/generate-plan/route.ts
+// exactly, including capitalization — the route's normalizeToMonthly
+// switch throws on anything outside these three values.
+const TIMING_OPTIONS = ["Weekly", "Bi-weekly", "Monthly"] as const;
+
 function createEmptyEntry(): IncomeEntry {
   return { source: "", amount: "", timing: "" };
 }
@@ -71,7 +76,7 @@ export default function OnboardingStep2Page() {
       }
 
       if (!entry.timing.trim()) {
-        nextErrors[`timing-${index}`] = `Timing is required for ${label}.`;
+        nextErrors[`timing-${index}`] = `Please select a timing for ${label}.`;
       }
     });
 
@@ -134,8 +139,8 @@ export default function OnboardingStep2Page() {
 
         <div className="mt-6 max-w-[320px] space-y-4 text-center text-base leading-snug text-black">
           <p>
-            Now, recall and enter your money inflows - estimated amount, timing
-            (once a month, bi-weekly, etc.), and source.
+            Now, recall and enter your money inflows - estimated amount,
+            timing (Weekly, Bi-weekly, or Monthly), and source.
           </p>
           <p>Note that you can create as much entries as you want.</p>
         </div>
@@ -184,15 +189,23 @@ export default function OnboardingStep2Page() {
 
                 <FormRow label="Timing:">
                   <div>
-                    <input
+                    <select
                       id={`timing-${index}`}
-                      type="text"
                       value={entry.timing}
                       onChange={(event) =>
                         updateEntry(index, "timing", event.target.value)
                       }
                       className={inputClassName}
-                    />
+                    >
+                      <option value="" disabled>
+                        Select timing
+                      </option>
+                      {TIMING_OPTIONS.map((option) => (
+                        <option key={option} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                    </select>
                     {fieldErrors[`timing-${index}`] && (
                       <p className="mt-1 text-sm text-red-600">
                         {fieldErrors[`timing-${index}`]}
