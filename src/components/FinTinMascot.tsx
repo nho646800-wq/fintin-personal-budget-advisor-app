@@ -7,6 +7,8 @@ export interface FinTinMascotProps {
   /** Bounding box size in pixels (width & height). The mascot's own aspect ratio is preserved. */
   size?: number;
   className?: string;
+  /** Idle bob. Off for screens that should stay still. */
+  animated?: boolean;
 }
 
 // Hoisted so the animate/transition objects keep a stable reference across
@@ -31,15 +33,19 @@ const BOB_TRANSITION = {
  * the mascot should import and render this component instead of redrawing
  * or hardcoding a copy of it.
  */
-export default function FinTinMascot({ size = 64, className }: FinTinMascotProps) {
+export default function FinTinMascot({
+  size = 64,
+  className,
+  animated = true,
+}: FinTinMascotProps) {
   return (
     <motion.div
       data-role="mascot"
       className={className}
       style={{ display: "inline-block", lineHeight: 0 }}
       initial={{ y: 0 }}
-      animate={BOB_ANIMATE}
-      transition={BOB_TRANSITION}
+      animate={animated ? BOB_ANIMATE : { y: 0 }}
+      transition={animated ? BOB_TRANSITION : { duration: 0 }}
     >
       <Image
         src="/mascot-cloud.svg"

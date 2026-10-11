@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { Fredoka, Geist, Geist_Mono } from "next/font/google";
 import PageTransition from "@/components/PageTransition";
-import RouteLoadingIndicator from "@/components/RouteLoadingIndicator";
 import "./globals.css";
 
 const fredoka = Fredoka({
@@ -39,9 +38,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         suppressHydrationWarning
         className="flex min-h-full flex-col"
       >
-        <Suspense fallback={null}>
-          <RouteLoadingIndicator />
-        </Suspense>
         <PageTransition>{children}</PageTransition>
       </body>
     </html>
