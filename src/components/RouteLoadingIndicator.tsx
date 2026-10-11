@@ -4,11 +4,30 @@ import { useEffect, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import LoadingSpinner from "@/components/LoadingSpinner";
 
+function currentUrlKey(): string {
+  return `${window.location.pathname}${window.location.search}`;
+}
+
+function urlKeyFromHistoryUrl(url: string | URL | null | undefined): string | null {
+  if (url == null) return null;
+  try {
+    const parsed = new URL(String(url), window.location.href);
+    if (parsed.origin !== window.location.origin) return null;
+    return `${parsed.pathname}${parsed.search}`;
+  } catch {
+    return null;
+  }
+}
+
 /**
- * Shows a centered circular spinner whenever the app is mid-navigation
- * (e.g. onboarding step 3 → /onboarding/plan). Detects App Router
- * navigations via History API hooks and clears once the pathname/search
- * settle on the destination route.
+ * Shows a centered circular spinner during App Router navigations
+ * (e.g. onboarding step 3 → /onboarding/plan).
+ *
+ * Clears as soon as the committed pathname/search change. Also ignores
+ * same-URL history writes — Next.js often calls replaceState after a
+ * navigation settles (scroll restoration / internal bookkeeping), and
+ * treating those as new navigations left the overlay spinning until a
+ * full page refresh.
  */
 export default function RouteLoadingIndicator() {
   const pathname = usePathname();
@@ -30,7 +49,15 @@ export default function RouteLoadingIndicator() {
   }
 
   useEffect(() => {
-    const markNavigating = () => setIsNavigating(true);
+    const markNavigatingIfUrlChanges = (
+      url: string | URL | null | undefined
+    ) => {
+      const nextKey = urlKeyFromHistoryUrl(url);
+      // pushState/replaceState with no URL (or the same URL) is Next.js
+      // internal bookkeeping — not a user navigation.
+      if (nextKey == null || nextKey === currentUrlKey()) return;
+      setIsNavigating(true);
+    };
 
     const onClick = (event: MouseEvent) => {
       if (event.defaultPrevented) return;
@@ -47,41 +74,43 @@ export default function RouteLoadingIndicator() {
       if (anchor.target && anchor.target !== "_self") return;
       if (anchor.hasAttribute("download")) return;
 
-      const url = new URL(anchor.href, window.location.href);
-      if (url.origin !== window.location.origin) return;
-
-      const current = window.location.pathname + window.location.search;
-      const next = url.pathname + url.search;
-      if (current !== next) {
-        markNavigating();
-      }
+      const nextKey = urlKeyFromHistoryUrl(anchor.href);
+      if (nextKey == null || nextKey === currentUrlKey()) return;
+      setIsNavigating(true);
     };
 
-    // Next.js App Router navigations (Link and router.push) go through
-    // history.pushState / replaceState. Patching those catches programmatic
-    // navigations that never fire an <a> click — like step 3 → plan.
     const originalPushState = history.pushState.bind(history);
     const originalReplaceState = history.replaceState.bind(history);
 
     history.pushState = (...args: Parameters<History["pushState"]>) => {
-      markNavigating();
+      markNavigatingIfUrlChanges(args[2]);
       return originalPushState(...args);
     };
     history.replaceState = (...args: Parameters<History["replaceState"]>) => {
-      markNavigating();
+      markNavigatingIfUrlChanges(args[2]);
       return originalReplaceState(...args);
     };
 
-    window.addEventListener("popstate", markNavigating);
+    const onPopState = () => setIsNavigating(true);
+
+    window.addEventListener("popstate", onPopState);
     document.addEventListener("click", onClick, true);
 
     return () => {
       history.pushState = originalPushState;
       history.replaceState = originalReplaceState;
-      window.removeEventListener("popstate", markNavigating);
+      window.removeEventListener("popstate", onPopState);
       document.removeEventListener("click", onClick, true);
     };
   }, []);
+
+  // Belt-and-suspenders: never leave the overlay up indefinitely if a
+  // navigation signal never settles into a routeKey change.
+  useEffect(() => {
+    if (!isNavigating) return;
+    const timeout = window.setTimeout(() => setIsNavigating(false), 8000);
+    return () => window.clearTimeout(timeout);
+  }, [isNavigating]);
 
   if (!isNavigating) return null;
 
