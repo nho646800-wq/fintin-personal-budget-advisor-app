@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useAppRouter } from "@/hooks/useAppRouter";
 import AppButton from "@/components/AppButton";
 import AuthHeader from "@/components/AuthHeader";
 import FinTinMascot from "@/components/FinTinMascot";
@@ -25,7 +25,7 @@ type FieldErrors = {
 };
 
 export default function OnboardingStep3Page() {
-  const router = useRouter();
+  const router = useAppRouter();
   const [purpose, setPurpose] = useState("");
   const [customPurpose, setCustomPurpose] = useState("");
   const [amount, setAmount] = useState("");

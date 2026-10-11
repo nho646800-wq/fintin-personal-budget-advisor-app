@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useAppRouter } from "@/hooks/useAppRouter";
 import AppButton from "@/components/AppButton";
 import AuthHeader from "@/components/AuthHeader";
 import FinTinMascot from "@/components/FinTinMascot";
@@ -14,7 +14,7 @@ import { parseCurrencyValue } from "@/lib/currency";
 import { createClient } from "@/lib/supabase/client";
 
 export default function OnboardingStep1Page() {
-  const router = useRouter();
+  const router = useAppRouter();
   const [openingBalance, setOpeningBalance] = useState("");
   const [fieldError, setFieldError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);

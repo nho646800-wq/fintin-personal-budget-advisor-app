@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useAppRouter } from "@/hooks/useAppRouter";
 import AppButton from "@/components/AppButton";
 import AuthHeader from "@/components/AuthHeader";
 import FinTinMascot from "@/components/FinTinMascot";
@@ -26,7 +26,7 @@ function createEmptyEntry(): IncomeEntry {
 }
 
 export default function OnboardingStep2Page() {
-  const router = useRouter();
+  const router = useAppRouter();
   const [entries, setEntries] = useState<IncomeEntry[]>([createEmptyEntry()]);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [formError, setFormError] = useState("");

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useAppRouter } from "@/hooks/useAppRouter";
 
 interface AuthHeaderProps {
   showBack?: boolean;
@@ -11,7 +11,7 @@ export default function AuthHeader({
   showBack = false,
   backHref = "/",
 }: AuthHeaderProps) {
-  const router = useRouter();
+  const router = useAppRouter();
 
   return (
     <header className="relative rounded-b-[28px] bg-[#295EFA] px-6 pb-6 pt-10 text-center">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useAppRouter } from "@/hooks/useAppRouter";
 import AppButton from "@/components/AppButton";
 import AuthHeader from "@/components/AuthHeader";
 import FinTinMascot from "@/components/FinTinMascot";
@@ -58,7 +58,7 @@ function PlanContent({ content }: { content: string }) {
 }
 
 export default function OnboardingPlanPage() {
-  const router = useRouter();
+  const router = useAppRouter();
   const plan = useGeneratePlan();
 
   return (

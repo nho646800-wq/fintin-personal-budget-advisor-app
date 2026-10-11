@@ -1,11 +1,11 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useAppRouter } from "@/hooks/useAppRouter";
 import AppButton from "@/components/AppButton";
 import FinTinMascot from "@/components/FinTinMascot";
 
 export default function WelcomePage() {
-  const router = useRouter();
+  const router = useAppRouter();
 
   return (
     <div className="flex min-h-screen flex-col bg-white font-[family-name:var(--font-fredoka)]">

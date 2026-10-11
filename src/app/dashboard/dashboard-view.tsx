@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useAppRouter } from "@/hooks/useAppRouter";
 import Link from "next/link";
 import {
   Cell,
@@ -129,7 +129,7 @@ export default function DashboardView({
   from,
   to,
 }: DashboardData) {
-  const router = useRouter();
+  const router = useAppRouter();
   const barWidth = Math.min(100, savingsPercent);
   const savingsSlice = Math.max(0, moneyOnHand);
   const chartTotal = needsTotal + wantsTotal + savingsSlice;

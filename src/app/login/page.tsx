@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useAppRouter } from "@/hooks/useAppRouter";
 import AppButton from "@/components/AppButton";
 import AuthHeader from "@/components/AuthHeader";
 import FinTinMascot from "@/components/FinTinMascot";
@@ -17,7 +17,7 @@ function isValidEmail(value: string) {
 }
 
 export default function LoginPage() {
-  const router = useRouter();
+  const router = useAppRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
