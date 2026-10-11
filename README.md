@@ -10,13 +10,7 @@
 
 ## The Problem
 
-[Will fill this in on Day 29. 2–3 sentences. 
-
-Example direction: College students lack lightweight, AI-assisted tools 
-
-that give personalized budgeting advice based on their actual spending — 
-
-not generic tips designed for people with stable incomes.]
+[Will fill this in on Day 29. 2–3 sentences.]
 
 ## The Solution
 
